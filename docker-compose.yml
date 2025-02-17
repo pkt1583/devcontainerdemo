@@ -1,0 +1,43 @@
+version: '3.1'
+services:
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+    restart: always
+  service1:
+    build:
+      context: service1
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    working_dir: /workspace/service1
+    command: sleep infinity
+    networks:
+      - backend
+    depends_on:
+      - db
+  service2:
+    build:
+      context: service2
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspace
+    working_dir: /workspace/service2
+    command: sleep infinity
+    networks:
+      - backend
+    depends_on:
+      - db
+  
+networks:
+  backend:
+    driver: bridge
