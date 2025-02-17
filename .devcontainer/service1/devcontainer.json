@@ -1,31 +1,34 @@
-
 {
-  name: "Default",
+  "name": "Default",
+  "service": "service1",
+  "workspaceFolder": "/workspace/service1",
+  "shutdownAction": "stopCompose",
+  "dockerComposeFile": ["../../docker-compose.yml"],
 
-  "build": {
-    // Path is relative to the devcontainer.json file.
-    "dockerfile": "../Dockerfile"
-  },
-
-  customizations : {
+  "customizations": {
     // Configure JetBrains IDE-specific properties
-    jetbrains : {
-      backend : "IntelliJ",
-      settings : {
+    "jetbrains": {
+      "backend": "IntelliJ",
+      "settings": {
         "com.intellij:app:HttpConfigurable.use_proxy_pac": true
         // IDE settings can be added via “Show context actions”|“Add currently modified settings from IDE”.
         // A complete list of supported settings is also available through auto-completion
       },
-      plugins: [
+      "plugins": [
         // A set of plugin IDs.
         // Plugin ID can be found on the corresponding plugin’s page at https://plugins.jetbrains.com.
       ]
+    },
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-gradle",
+        "ms-azuretools.vscode-docker",
+        "vscjava.vscode-java-pack"
+      ]
     }
   },
-  features: {
-    "ghcr.io/devcontainers/features/git" : {},
+  "features": {
+    "ghcr.io/devcontainers/features/git": {}
     // Add additional features to your project using auto-completion.
-  },
-  // Comment out to connect as the root user.
-  remoteUser: "ubuntu"
+  }
 }
